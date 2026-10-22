@@ -1,0 +1,9 @@
+.venv/
+.mojo-venv/
+__mojo_cache__/
+.mojo_cache/
+*.pyc
+__pycache__/
+build/
+out/
+src/gen_*.mojo

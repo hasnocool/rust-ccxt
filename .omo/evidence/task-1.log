@@ -1,0 +1,24 @@
+Task 1: Initialize pnpm + Turborepo monorepo with Bun runtime for idea-tracker
+Created files:
+apps/cli/package.json
+apps/tauri-app/package.json
+package.json
+packages/ai-providers/package.json
+packages/core-domain/package.json
+packages/persistence/package.json
+packages/rust-core/package.json
+packages/workflow-engine/package.json
+pnpm-workspace.yaml
+turbo.json
+
+Workspace dirs:
+apps:
+cli
+tauri-app
+
+packages:
+ai-providers
+core-domain
+persistence
+rust-core
+workflow-engine
