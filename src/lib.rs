@@ -8,10 +8,16 @@ pub mod bybit_sig;
 pub mod kraken_sig;
 pub mod exchanges;
 pub mod types;
+pub mod onchain;
+pub mod derivatives;
+pub mod correlation;
 
 pub use error::{CcxtError, CcxtResult};
 pub use exchanges::*;
 pub use types::*;
+pub use onchain::*;
+pub use derivatives::*;
+pub use correlation::*;
 
 use async_trait::async_trait;
 

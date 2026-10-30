@@ -10,6 +10,7 @@ keywords = ["crypto", "exchange", "trading", "api", "ccxt"]
 categories = ["api-bindings", "finance"]
 
 [dependencies]
+rust-ccxt-news = { path = "../rustCCXT.news" }
 reqwest = { version = "0.12", features = ["json", "rustls-tls"] }
 tokio = { version = "1", features = ["full"] }
 serde = { version = "1.0", features = ["derive"] }
