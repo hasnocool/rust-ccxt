@@ -160,3 +160,4 @@ async fn run_pipeline() {
     let signal = CorrelationEngine::analyze(2.5, sentiment, funding.funding_rate, &onchain);
     println!("\n[9] Composite: {:.3} ({})", signal.composite_score, signal.interpretation());
 }
+
