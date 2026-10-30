@@ -67,3 +67,7 @@ pub trait Exchange: Send + Sync {
     /// Whether the adapter is implemented (stub vs real).
     fn is_implemented(&self) -> bool;
 }
+
+pub mod indicators;
+pub mod macro_;
+pub mod realtime;

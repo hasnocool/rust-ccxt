@@ -200,3 +200,27 @@ Stablecoin monitoring. Peg deviation, supply changes, de-peg alerts, reserve tra
 | Kraken public | OHLCV |
 | CryptoQuant (free) | Basic metrics |
 | Glassnode Studio (free) | Daily stats |
+
+## A. New Standalone Crates (implemented)
+Implemented as rustCCXT.* crates:
+- rustCCXT.liquidations
+- rustCCXT.funding
+- rustCCXT.gas
+- rustCCXT.discord
+- rustCCXT.twitter
+- rustCCXT.rss
+- rustCCXT.flash
+- rustCCXT.tax
+- rustCCXT.ema
+- rustCCXT.ai
+
+## B. Core Enhancements (implemented)
+- Unified rate limiter (src/rate_limiter.rs)
+- OHLCV aggregation (src/ohlcv.rs)
+- Indicators (src/indicators/)
+- Plugin system (src/plugins.rs)
+- Realtime engine (src/realtime/)
+- Macro data (src/macro/)
+
+## C. Additional Free Data Sources (implemented)
+- DeFiLlama, Flipside Crypto, Dune Analytics, CoinGecko, CoinMarketCap free, Binance OpenAPI, OKX public, Kraken public, CryptoQuant free, Glassnode Studio free

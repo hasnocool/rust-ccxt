@@ -1,0 +1,2 @@
+// tax
+pub struct Tax{}

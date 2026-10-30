@@ -1,0 +1,2 @@
+// flash
+pub struct Flash{}

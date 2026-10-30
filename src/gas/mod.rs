@@ -1,0 +1,2 @@
+// gas
+pub struct Gas{}

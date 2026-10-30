@@ -1,0 +1,2 @@
+// liquidations
+pub struct Liquidations{}
