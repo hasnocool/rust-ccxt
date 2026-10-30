@@ -1,0 +1,28 @@
+[package]
+name = "rust-ccxt"
+version = "0.1.0"
+edition = "2021"
+authors = ["rust-ccxt contributors"]
+description = "Rust port of CCXT — unified crypto exchange trading library"
+license = "MIT"
+repository = "https://github.com/user/rust-ccxt"
+keywords = ["crypto", "exchange", "trading", "api", "ccxt"]
+categories = ["api-bindings", "finance"]
+
+[dependencies]
+reqwest = { version = "0.12", features = ["json", "rustls-tls"] }
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+thiserror = "1.0"
+async-trait = "0.1"
+url = "2.5"
+chrono = { version = "0.4", features = ["serde"] }
+hmac = "0.12"
+sha2 = "0.10"
+hex = "0.4"
+percent-encoding = "2.3"
+base64 = "0.22"
+
+[dev-dependencies]
+tokio-test = "0.4"
