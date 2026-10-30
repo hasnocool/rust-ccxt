@@ -112,3 +112,40 @@ impl Onchain {
         Ok(snap)
     }
 }
+
+/// Santiment on-chain analytics (free tier with API key).
+pub struct Santiment {
+    pub api_key: String,
+}
+
+impl Santiment {
+    pub fn new(api_key: impl Into<String>) -> Self {
+        Self { api_key: api_key.into() }
+    }
+
+    /// Fetch a metric time series (e.g., "active_addresses_24h", "transaction_volume").
+    pub async fn metric(&self, metric: &str, slug: &str, from: &str, to: &str, interval: &str) -> Result<serde_json::Value, reqwest::Error> {
+        let query = format!(
+            r#"{{ getMetric(metric: "{}") {{ timeseriesData(slug: "{}", from: "{}", to: "{}", interval: "{}") {{ datetime value }} }} }}"#,
+            metric, slug, from, to, interval
+        );
+        let client = reqwest::Client::builder().user_agent("rust-ccxt/0.1").build().unwrap();
+        tokio::time::sleep(tokio::time::Duration::from_millis(300)).await;
+        let resp = client
+            .post("https://api.santiment.net/graphql")
+            .header("Authorization", format!("Apikey {}", self.api_key))
+            .json(&serde_json::json!({"query": query}))
+            .send().await?;
+        Ok(resp.json().await?)
+    }
+
+    /// Active addresses (24h) for a slug.
+    pub async fn active_addresses(&self, slug: &str, from: &str, to: &str) -> Result<serde_json::Value, reqwest::Error> {
+        self.metric("active_addresses_24h", slug, from, to, "1d").await
+    }
+
+    /// Transaction volume.
+    pub async fn tx_volume(&self, slug: &str, from: &str, to: &str) -> Result<serde_json::Value, reqwest::Error> {
+        self.metric("transaction_volume", slug, from, to, "1d").await
+    }
+}

@@ -13,6 +13,7 @@ pub mod derivatives;
 pub mod correlation;
 pub mod dexscreener;
 pub mod coingecko;
+pub mod coinmarketcap;
 pub mod geckoterminal;
 pub mod sentiment;
 pub mod stocks;
@@ -30,6 +31,7 @@ pub use derivatives::*;
 pub use correlation::*;
 pub use dexscreener::DexScreener;
 pub use coingecko::CoinGecko;
+pub use coinmarketcap::CoinMarketCap;
 pub use geckoterminal::GeckoTerminal;
 
 use async_trait::async_trait;
