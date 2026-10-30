@@ -15,6 +15,7 @@ pub mod dexscreener;
 pub mod coingecko;
 pub mod geckoterminal;
 pub mod sentiment;
+pub mod stocks;
 pub mod news;
 pub mod cache;
 
