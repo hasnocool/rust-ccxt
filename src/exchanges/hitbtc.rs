@@ -4,6 +4,14 @@ use reqwest;
 use serde_json::Value;
 use chrono::Utc;
 
+fn g(v:&serde_json::Value, keys:&[&str])->f64 {
+    for k in keys {
+        if let Some(s)=v.get(k).and_then(|x|x.as_str()) { if let Ok(n)=s.parse::<f64>() { return n; } }
+        if let Some(n)=v.get(k).and_then(|x|x.as_f64()) { return n; }
+    }
+    0.0
+}
+
 fn base() -> &'static str { "BASE_URL" }
 
 #[derive(Debug, Default, Clone)]
