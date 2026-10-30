@@ -18,6 +18,9 @@ pub mod sentiment;
 pub mod stocks;
 pub mod news;
 pub mod cache;
+pub mod rate_limiter;
+pub mod ohlcv;
+pub mod plugins;
 
 pub use error::{CcxtError, CcxtResult};
 pub use exchanges::*;

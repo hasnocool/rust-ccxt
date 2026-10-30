@@ -72,6 +72,17 @@ impl Onchain {
         Ok(text.trim().parse().unwrap_or(0.0))
     }
 
+    /// Ethereum gas price (gwei) via public RPC (free, no key).
+    pub async fn eth_gas_price() -> Result<f64, reqwest::Error> {
+        let client = reqwest::Client::new();
+        let body = serde_json::json!({"jsonrpc":"2.0","method":"eth_gasPrice","params":[],"id":1});
+        let resp = client.post("https://cloudflare-eth.com").json(&body).send().await?;
+        let v: serde_json::Value = resp.json().await?;
+        let hex = v["result"].as_str().unwrap_or("0x0");
+        let wei = u64::from_str_radix(hex.trim_start_matches("0x"), 16).unwrap_or(0);
+        Ok(wei as f64 / 1e9)
+    }
+
     /// Aggregate snapshot of on-chain state (cached 60s).
     pub async fn snapshot() -> Result<OnchainSnapshot, reqwest::Error> {
         if let Some(cached) = crate::cache::get("onchain:snapshot") {
