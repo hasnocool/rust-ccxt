@@ -1161,6 +1161,7 @@ dependencies = [
  "percent-encoding",
  "reqwest",
  "rust-ccxt-news",
+ "rust-ccxt-sentiment",
  "serde",
  "serde_json",
  "sha2",
@@ -1177,11 +1178,19 @@ dependencies = [
  "chrono",
  "reqwest",
  "rss",
+ "rust-ccxt-sentiment",
  "serde",
  "serde_json",
  "thiserror 1.0.69",
  "tokio",
  "url",
+]
+
+[[package]]
+name = "rust-ccxt-sentiment"
+version = "0.1.0"
+dependencies = [
+ "serde",
 ]
 
 [[package]]

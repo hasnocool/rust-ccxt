@@ -19,8 +19,10 @@ pub struct OnchainSnapshot {
 
 #[derive(Deserialize)]
 struct MempoolFees {
-    fastestFee: f64,
-    halfHourFee: f64,
+    #[serde(rename="fastestFee")]
+    fastest_fee: f64,
+    #[serde(rename="halfHourFee")]
+    half_hour_fee: f64,
     #[serde(rename="hourFee")]
     hour_fee: f64,
 }
@@ -33,7 +35,7 @@ impl Onchain {
         let url = "https://mempool.space/api/v1/fees/recommended";
         let resp = reqwest::get(url).await?;
         let f: MempoolFees = resp.json().await?;
-        Ok((f.fastestFee, f.halfHourFee, f.hour_fee))
+        Ok((f.fastest_fee, f.half_hour_fee, f.hour_fee))
     }
 
     /// Fetch mempool stats from mempool.space.
