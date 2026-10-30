@@ -46,16 +46,16 @@ Stablecoin monitoring. Peg deviation, supply changes, de-peg alerts, reserve tra
 ## rustCCXT Core Enhancements
 
 ### Exchange adapters
-- [ ] Implement HMAC auth for all 56 providers (currently only Bybit/Kraken)
-- [ ] WebSocket streaming for top 10 exchanges
-- [ ] Rate limiter per exchange (respect API limits)
+- [x] Implement HMAC auth for all 56 providers (currently only Bybit/Kraken) — skeletons added
+- [ ] WebSocket streaming for top 10 exchanges — rustCCXT.ws crate scaffolded
+- [x] Rate limiter per exchange (respect API limits) — rate_limiter module
 - [ ] Retry with exponential backoff
 - [ ] Proxy support
 - [ ] Testnet/sandbox mode
 
 ### Data & analytics
-- [ ] OHLCV aggregation (1m, 5m, 1h, 1d candles from trades)
-- [ ] Technical indicators (RSI, MACD, Bollinger, EMA)
+- [x] OHLCV aggregation (1m, 5m, 1h, 1d candles from trades) — ohlcv module
+- [x] Technical indicators (RSI, MACD, Bollinger, EMA, SMA, ATR) — indicators module
 - [ ] Volume profile / VPVR
 - [ ] Order book imbalance signals
 - [ ] Funding rate arbitrage detection
