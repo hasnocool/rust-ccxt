@@ -165,3 +165,38 @@ Stablecoin monitoring. Peg deviation, supply changes, de-peg alerts, reserve tra
 6. **Portfolio tracker** — user value
 7. **Plugin system** — extensibility
 8. **Python/Node bindings** — broader adoption
+
+## New High-Impact Ideas (Free-Data-First)
+
+### A. New Standalone Crates
+1. **rustCCXT.liquidations** — liquidation heatmaps from Hyperliquid/Binance liquidation feeds (public), detect cascading risk
+2. **rustCCXT.funding** — funding rate arbitrage monitor across perpetuals, daily funding delta
+3. **rustCCXT.gas** — multi-chain gas tracker (EVM RPC free endpoints, Solana, Bitcoin fees)
+4. **rustCCXT.discord/twitter/rss** — lightweight social ingest via free RSS/Nitter, sentiment per coin
+5. **rustCCXT.flash** — flash crash detector (price drop > X% in Y seconds), webhook alerts
+6. **rustCCXT.tax** — tax lot tracking, realized/unrealized PnL, CSV export for taxes
+7. **rustCCXT.ema** — email alerts crate (SMTP), Telegram/Discord webhook plugins
+8. **rustCCXT.ai** — local LLM sentiment summarizer (llama.cpp), no cloud API
+
+### B. Core Enhancements
+- Unified rate limiter per IP + global (token bucket with Redis)
+- Exponential backoff + jitter for all HTTP clients
+- Order-book reconstruction from trades (LOB simulation)
+- Multi-timeframe indicators (M1/H1/D1 correlation)
+- Cross-exchange symbol mapping (BTC-USDT vs BTC/USD normalization)
+- Testnet sandboxes for Bybit/Binance (isolated auth)
+- WASM build for browser playground
+
+### C. Additional Free Data Sources
+| Source | Data |
+|---|---|
+| DeFiLlama | TVL, yields |
+| Flipside Crypto | SQL queries |
+| Dune Analytics | Public dashboards |
+| CoinGecko | Market cap, volumes |
+| CoinMarketCap free | Top 100 prices |
+| Binance OpenAPI | Full market data |
+| OKX public | Funding, depth |
+| Kraken public | OHLCV |
+| CryptoQuant (free) | Basic metrics |
+| Glassnode Studio (free) | Daily stats |
