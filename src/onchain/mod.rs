@@ -5,7 +5,7 @@
 use serde::Deserialize;
 use serde_json::Value;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct OnchainSnapshot {
     pub btc_price_usd: f64,
     pub hashrate_ehs: f64,
@@ -70,14 +70,20 @@ impl Onchain {
         Ok(text.trim().parse().unwrap_or(0.0))
     }
 
-    /// Aggregate snapshot of on-chain state.
+    /// Aggregate snapshot of on-chain state (cached 60s).
     pub async fn snapshot() -> Result<OnchainSnapshot, reqwest::Error> {
+        if let Some(cached) = crate::cache::get("onchain:snapshot") {
+            // Re-parse cached JSON
+            if let Ok(snap) = serde_json::from_str::<OnchainSnapshot>(&cached) {
+                return Ok(snap);
+            }
+        }
         let (fast, med, slow) = Self::fees().await.unwrap_or((0.0, 0.0, 0.0));
         let (count, vsize) = Self::mempool().await.unwrap_or((0, 0));
         let height = Self::block_height().await.unwrap_or(0);
         let price = Self::btc_price().await.unwrap_or(0.0);
         let hr = Self::hashrate().await.unwrap_or(0.0);
-        Ok(OnchainSnapshot {
+        let snap = OnchainSnapshot {
             btc_price_usd: price,
             hashrate_ehs: hr / 1e6, // TH/s -> EH/s
             mempool_tx_count: count,
@@ -86,6 +92,10 @@ impl Onchain {
             fee_medium_sat_vb: med,
             fee_slow_sat_vb: slow,
             block_height: height,
-        })
+        };
+        if let Ok(s) = serde_json::to_string(&snap) {
+            crate::cache::set("onchain:snapshot", s, std::time::Duration::from_secs(60));
+        }
+        Ok(snap)
     }
 }

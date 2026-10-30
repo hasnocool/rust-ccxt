@@ -5,14 +5,14 @@
 use serde::Deserialize;
 use serde_json::Value;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct FundingRate {
     pub symbol: String,
     pub funding_rate: f64,
     pub funding_time: i64,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct OpenInterest {
     pub symbol: String,
     pub open_interest: f64,
@@ -41,6 +41,12 @@ pub struct Derivatives;
 impl Derivatives {
     /// Binance Futures funding rate (latest).
     pub async fn binance_funding(symbol: &str) -> Result<FundingRate, reqwest::Error> {
+        let key = format!("deriv:binance_funding:{}", symbol);
+        if let Some(cached) = crate::cache::get(&key) {
+            if let Ok(fr) = serde_json::from_str::<FundingRate>(&cached) {
+                return Ok(fr);
+            }
+        }
         let url = format!(
             "https://fapi.binance.com/fapi/v1/fundingRate?symbol={}&limit=1",
             symbol
@@ -48,11 +54,13 @@ impl Derivatives {
         let resp = reqwest::get(&url).await?;
         let arr: Vec<BinanceFunding> = resp.json().await?;
         if let Some(f) = arr.into_iter().next() {
-            Ok(FundingRate {
+            let fr = FundingRate {
                 symbol: f.symbol,
                 funding_rate: f.funding_rate.parse().unwrap_or(0.0),
                 funding_time: f.funding_time,
-            })
+            };
+            if let Ok(s) = serde_json::to_string(&fr) { crate::cache::set(&key, s, std::time::Duration::from_secs(60)); }
+            Ok(fr)
         } else {
             Ok(FundingRate {
                 symbol: symbol.to_string(),

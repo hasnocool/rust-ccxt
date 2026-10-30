@@ -11,6 +11,7 @@ pub mod types;
 pub mod onchain;
 pub mod derivatives;
 pub mod correlation;
+pub mod cache;
 
 pub use error::{CcxtError, CcxtResult};
 pub use exchanges::*;
