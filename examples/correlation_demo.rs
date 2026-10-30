@@ -25,7 +25,7 @@ async fn main() {
 
     // 3. News sentiment
     let news = NewsClient::google_news("bitcoin").await.unwrap_or_default();
-    let sentiment = Sentiment::average(&news);
+    let sentiment = Sentiment::average_items(&news);
     println!("News items: {}, avg sentiment: {:.3}", news.len(), sentiment);
 
     // 4. Correlation
